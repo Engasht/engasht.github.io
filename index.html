@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyborg Creatures</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+    header {
+      margin: 20px 0;
+      font-size: 1.8rem;
+    }
+    #creature {
+      width: 200px;
+      height: 200px;
+      background: url('CarrotCyborg.png') no-repeat center/cover;
+      margin: 20px 0;
+      border-radius: 10px;
+      border: 2px solid #666;
+    }
+    #energy {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    #battery {
+      width: 100px;
+      height: 100px;
+      background: url('Battery.png') no-repeat center/cover;
+      border-radius: 10px;
+      border: 2px solid #4caf50;
+      cursor: grab;
+    }
+    #core {
+      width: 150px;
+      height: 150px;
+      background-color: #222;
+      border: 2px dashed #aaa;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>Cyborg Creatures</header>
+  <div id="creature"></div>
+  <div id="energy">Energy: <span id="energy-count">0</span></div>
+  <div id="battery" draggable="true"></div>
+  <div id="core">Drop Battery Here</div>
+
+  <script>
+    let energy = parseInt(localStorage.getItem("energy")) || 0;
+    const energyDisplay = document.getElementById("energy-count");
+    const core = document.getElementById("core");
+
+    energyDisplay.textContent = energy;
+
+    core.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      core.style.backgroundColor = "#333";
+    });
+
+    core.addEventListener("dragleave", () => {
+      core.style.backgroundColor = "#222";
+    });
+
+    core.addEventListener("drop", () => {
+      energy += 1;
+      localStorage.setItem("energy", energy);
+      energyDisplay.textContent = energy;
+      core.style.backgroundColor = "#222";
+    });
+  </script>
+</body>
+</html>
